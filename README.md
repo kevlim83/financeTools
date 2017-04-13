@@ -1,0 +1,2 @@
+# financeTools
+Experimental financial analysis
