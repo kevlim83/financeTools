@@ -1,4 +1,5 @@
 #install.packages("quantmod")
+#remotes::install_github("joshuaulrich/quantmod", ref="157_yahoo_502")
 library(quantmod)
 getSymbols("AAPL")
 chartSeries(AAPL,subset="last 9 months")
