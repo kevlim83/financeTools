@@ -1,6 +1,10 @@
 #install.packages("quantmod")
 #remotes::install_github("joshuaulrich/quantmod", ref="157_yahoo_502")
 library(quantmod)
+library(BatchGetSymbols)
+
+Sys.setenv(TZ="Singapore")
+
 getSymbols("AAPL")
 chartSeries(AAPL,subset="last 9 months")
 addSMA(10,col="blue")
@@ -33,3 +37,13 @@ addTA(slowMA,on=1,col="red")
 addTA(fastMA-slowMA)
 addTA(AAPL[buy(position),"AAPL.Low"] - 30, pch = 2, type = "p", col = "red", on = 1)
 addTA(AAPL[sell(position),"AAPL.High"] + 30, pch = 6, type = "p", col = "green", on = 1)
+
+##TA
+if(weekdays(Sys.Date())=="Monday"){
+    ytd=Sys.Date()-3    
+}else{
+    ytd=Sys.Date()-1
+}
+allsgx<-BatchGetSymbols(paste0(sgx$Symbol,".SI"),first.date = ytd,last.date = Sys.Date())
+
+
