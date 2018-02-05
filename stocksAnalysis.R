@@ -47,5 +47,13 @@ if(weekdays(Sys.Date())=="Monday"){
     ytd2=Sys.Date()-2
 }
 allsgx<-BatchGetSymbols(paste0(sgx$Symbol,".SI"),first.date = ytd2,last.date = ytd)
+ows<-which(sapply(unique(allsgx$df.tickers$ticker),function(x){
+    y<-(allsgx$df.tickers[allsgx$df.tickers$ticker==x,])
+    y$price.open[2]>y$price.open[1] && y$price.close[2]>y$price.close[1] && y$price.open[1]!=y$price.close[1]
+    }))
 
+ham<-which(sapply(unique(allsgx$df.tickers$ticker),function(x){
+    y<-(allsgx$df.tickers[allsgx$df.tickers$ticker==x,])
+    (abs(y$price.high[2]-y$price.close[2])/y$price.close[2])<0.01 && (abs(y$price.open[2]-y$price.close[2])/y$price.close[2])<0.01 && (abs(y$price.close[2]-y$price.low[2])/y$price.close[2])>0.02 && y$price.close[2]>0.2
+    }))
 
