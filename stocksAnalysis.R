@@ -40,10 +40,12 @@ addTA(AAPL[sell(position),"AAPL.High"] + 30, pch = 6, type = "p", col = "green",
 
 ##TA
 if(weekdays(Sys.Date())=="Monday"){
-    ytd=Sys.Date()-3    
+    ytd=Sys.Date()-3
+    ytd2=Sys.Date()-4
 }else{
     ytd=Sys.Date()-1
+    ytd2=Sys.Date()-2
 }
-allsgx<-BatchGetSymbols(paste0(sgx$Symbol,".SI"),first.date = ytd,last.date = Sys.Date())
+allsgx<-BatchGetSymbols(paste0(sgx$Symbol,".SI"),first.date = ytd2,last.date = ytd)
 
 
