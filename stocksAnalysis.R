@@ -52,11 +52,14 @@ if(weekdays(Sys.Date())=="Monday"){
 allsgx<-BatchGetSymbols(paste0(sgx$Symbol,".SI"),first.date = ytd2,last.date = ytd)
 ows<-which(sapply(unique(allsgx$df.tickers$ticker),function(x){
     y<-(allsgx$df.tickers[allsgx$df.tickers$ticker==x,])
-    y$price.open[2]>y$price.open[1] && y$price.close[2]>y$price.close[1] && y$price.open[1]!=y$price.close[1]
+    y1index<-dim(y)[1]
+    y2index<-dim(y)[1]-1
+    y$price.open[y1index]>y$price.open[y2index] && y$price.close[y1index]>y$price.close[y2index] && y$price.open[y2index]!=y$price.close[y2index]
     }))
 
 ham<-which(sapply(unique(allsgx$df.tickers$ticker),function(x){
     y<-(allsgx$df.tickers[allsgx$df.tickers$ticker==x,])
-    (abs(y$price.high[2]-y$price.close[2])/y$price.close[2])<0.01 && (abs(y$price.open[2]-y$price.close[2])/y$price.close[2])<0.01 && (abs(y$price.close[2]-y$price.low[2])/y$price.close[2])>0.02 && y$price.close[2]>0.2
+    y1index<-dim(y)[1]
+    (abs(y$price.high[y1index]-y$price.close[y1index])/y$price.close[y1index])<0.01 && (abs(y$price.open[y1index]-y$price.close[y1index])/y$price.close[y1index])<0.01 && (abs(y$price.close[y1index]-y$price.low[y1index])/y$price.close[y1index])>0.02 && y$price.close[y1index]>0.2
     }))
 
