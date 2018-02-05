@@ -42,7 +42,10 @@ addTA(AAPL[sell(position),"AAPL.High"] + 30, pch = 6, type = "p", col = "green",
 if(weekdays(Sys.Date())=="Monday"){
     ytd=Sys.Date()-3
     ytd2=Sys.Date()-4
-}else{
+}else if(weedays(Sys.Date())=="Tuesday"){
+    ytd=Sys.Date()-1
+    ytd2=Sys.Date()-3
+ else{
     ytd=Sys.Date()-1
     ytd2=Sys.Date()-2
 }
