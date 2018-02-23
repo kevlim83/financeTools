@@ -62,4 +62,9 @@ ham<-which(sapply(unique(allsgx$df.tickers$ticker),function(x){
     y1index<-dim(y)[1]
     (abs(y$price.high[y1index]-y$price.close[y1index])/y$price.close[y1index])<0.01 && (abs(y$price.open[y1index]-y$price.close[y1index])/y$price.close[y1index])<0.01 && (abs(y$price.close[y1index]-y$price.low[y1index])/y$price.close[y1index])>0.02 && y$price.close[y1index]>0.2
     }))
+ 
+osc<-which(sapply(unique(allsgx$df.tickers$ticker),function(x){
+    y<-xts(allsgx$df.tickers[allsgx$df.tickers$ticker==x,1:4],order.by = allsgx$df.tickers[allsgx$df.tickers$ticker==x,"ref.date"])
+    last(rollapply(y,width=14,by.column=F,FUN=function(z){(last(z)[,"price.close"]-min(z[,"price.low"]))/(max(z[,"price.high"]-min(z[,"price.low"])))}))[[1]]<= 0.2
+}))
 
