@@ -68,3 +68,10 @@ osc<-which(sapply(unique(allsgx$df.tickers$ticker),function(x){
     last(rollapply(y,width=14,by.column=F,FUN=function(z){(last(z)[,"price.close"]-min(z[,"price.low"]))/(max(z[,"price.high"]-min(z[,"price.low"])))}))[[1]]<= 0.2
 }))
 
+ uptrend<-which(sapply(unique(allsgx$df.tickers$ticker),function(x){
+    y<-xts(allsgx$df.tickers[allsgx$df.tickers$ticker==x,4],order.by = allsgx$df.tickers[allsgx$df.tickers$ticker==x,"ref.date"])
+    ma50<-last(rollapplyr(y,width=50,mean))
+    ma150<-last(rollapplyr(y,width=150,mean))
+    ma200<-last(rollapplyr(y,width=200,mean))
+    ma50>=ma150 && ma150>=ma200
+}))
